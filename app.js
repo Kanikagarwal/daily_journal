@@ -75,7 +75,7 @@ Blog.findOne({_id:requestedId}).then(function (post) {
   });
   
 
-
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+  const PORT = process.env.PORT || 5000;
+app.listen(PORT, function() {
+  console.log(`Server started on port ${PORT}`);
 });
