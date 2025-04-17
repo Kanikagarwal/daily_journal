@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
+require('dotenv').config();
 
 const homeStartingContent = "A curated collection of reflections, insights, and narratives designed to inspire thoughtful engagement with the world around us. Daily Journal offers a space where words matter — where each entry is a quiet conversation between writer and reader.Whether exploring contemporary topics, personal growth, culture, or quiet musings, our journal aspires to bring depth, clarity, and nuance to the everyday.We invite you to pause, read, and reflect — one entry at a time.";
 const aboutContent = "At Daily Journal, we believe in the quiet power of words to inform, inspire, and illuminate. What began as a simple space for daily reflections has evolved into a thoughtful platform for sharing stories that resonate — deeply and authentically.We are a collective of writers, thinkers, and creatives united by a common pursuit: to document the moments, ideas, and experiences that shape our lives. From contemplative essays to cultural commentary, our content is crafted with intention and intellectual curiosity.";
@@ -15,7 +16,9 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-mongoose.connect('mongodb://127.0.0.1:27017/blogDB',{useNewUrlParser:true});
+mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true})
+.then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 let blogSchema = new mongoose.Schema({
   title: String,
   content: String
